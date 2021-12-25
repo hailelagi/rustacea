@@ -29,14 +29,54 @@ struct Rectangle {
     height: i32
 }
 
+
+/////////////////////
+/// METHODS ////////
+/////////////////////
+
+#[derive(Debug)]
+struct Circle {
+    radius: u32
+}
+
+struct Polygon {
+    vertix_1: u32,
+    vertix_2: u32,
+    vertix_3: u32 
+}
+
+impl Circle {
+    fn circumference(&self) -> f64 {
+        (2 as f64) * 3.142 * (self.radius as f64)
+    }
+
+    fn can_circumscribe(&self, polygon: &Polygon) -> bool {
+        self.radius >= polygon.vertix_1 && 
+        self.radius >= polygon.vertix_2 && 
+        self.radius >= polygon.vertix_3
+    }
+
+    // associated functions
+    fn scale_circle(radius: u32, scale: u32) -> Circle {
+        Circle {radius: radius * scale}
+    }
+}
+
 fn main() {
-    let rect = Rectangle {width: 30, height: 50};
+    // let rect = Rectangle {width: 30, height: 50};
 
     // pprint stdout
-    println!("area is {:#?}", area(&rect));
+    // println!("area is {:#?}", area(&rect));
 
     // alt debug mode - very nice
-    dbg!(area(&rect));
+    // dbg!(area(&rect));
+
+    let circle = Circle {radius: 10};
+    let triangle = Polygon{vertix_1: 5, vertix_2: 8, vertix_3: 7};
+
+    println!("{:?}", circle.circumference());
+    println!("{:?}", circle.can_circumscribe(&triangle));
+    println!("{:?}", Circle::scale_circle(10, 2))
 }
 
 
@@ -44,3 +84,4 @@ fn main() {
 fn area(rectangle: &Rectangle) -> i32 {
     rectangle.height * rectangle.width
 }
+
