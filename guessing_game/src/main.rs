@@ -6,7 +6,7 @@ fn main() {
     println!(" -- GUESS THE NUMBER --");
 
     let secret_num = rand::thread_rng().gen_range(1..=100);
-
+    
     loop {
         println!("The meaning of life is?: \n");
 
@@ -25,7 +25,7 @@ fn main() {
         };
 
         match guess.cmp(&secret_num) {
-            Ordering::Less => println!("guess lower :("),
+            Ordering::Less => println!("guess too low, go up! :("),
             Ordering::Greater => println!("ack way too high man"),
             Ordering::Equal => {
                 println!("Bullseye, you have attained wisdom!");
