@@ -6,7 +6,7 @@ fn main() {
     println!(" -- GUESS THE NUMBER --");
 
     let secret_num = rand::thread_rng().gen_range(1..=100);
-    
+
     loop {
         println!("The meaning of life is?: \n");
 
