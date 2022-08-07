@@ -12,7 +12,7 @@ fn main() {
 
 // string types
 // char => utf-8 encoded 4 bytes
-// str => stack allocated encoded bytes - string literal
+// str => stack allocated encoded bytes - string literal slice of String
 // String => heap allocated growth based pointer
 // clone copies heap data
 // moves change stack data from one variable to another
@@ -38,9 +38,8 @@ fn rule() {
 
     println!("s_2 is at {:p}", &s_2);
     s_2 = take_stuff(s_2);
-    println!("{:p}", &s_2);
+    println!("s_2 is now at {:p}", &s_2);
 
-    // This triggers a new heap allocation? why?
     s.push_str("!!!!");
     s_2.push_str("!!!");
 
@@ -66,7 +65,7 @@ fn take_stuff(mut x: String) -> String {
         a realllyyy loongggg possilbly large string to trigger heap reallocation",
     );
 
-    println!("{:p}", &x);
+    println!("borrowed {:p}", &x);
     return x;
     // `drop() is called freeing x
 }
