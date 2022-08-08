@@ -23,6 +23,15 @@ fn area(dimensions: (i32, i32)) -> i32 {
 }
 */
 
+// tuple structs
+struct Color(i32, i32, i32);
+struct Point(i32, i32, i32);
+
+fn color_point() {
+    let black = Color(255, 255, 38);
+    let origin = Point(1, 10, 0);
+}
+
 #[derive(Debug)]
 struct Rectangle {
     width: i32,
