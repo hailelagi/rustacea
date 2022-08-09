@@ -31,12 +31,11 @@ fn rule() {
     let mut s_2 = String::from("bye");
 
     println!("s is at {:p}", &s);
+    println!("s_2 is at {:p}", &s_2);
 
     do_stuff(&mut s);
 
-    // declared s_2 is moved into take_stuff
-
-    println!("s_2 is at {:p}", &s_2);
+   // declared s_2 is moved into take_stuff
     s_2 = take_stuff(s_2);
     println!("s_2 is now at {:p}", &s_2);
 
@@ -65,7 +64,7 @@ fn take_stuff(mut x: String) -> String {
         a realllyyy loongggg possilbly large string to trigger heap reallocation",
     );
 
-    println!("borrowed {:p}", &x);
+    println!("moved at {:p}", &x);
     return x;
     // `drop() is called freeing x
 }
@@ -74,6 +73,5 @@ fn do_stuff(s: &mut String) {
     s.push_str(" ,world");
     // `drop() is never called
 }
-
 // Slices - https://doc.rust-lang.org/book/ch04-03-slices.html#the-slice-type
 // slices are pointer based views into the len up to cap of an array
