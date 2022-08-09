@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 fn main() {
     let v: Vec<i32> = Vec::new();
     let x = vec![1, 2];
@@ -5,7 +7,10 @@ fn main() {
     println!("{:?} {:?}", v, x);
     println!("Hello, world!");
 
-    follow()
+    // follow();
+    // unicode();
+    dictionary();
+    panic!()
 }
 
 pub fn follow() {
@@ -22,6 +27,33 @@ pub fn follow() {
     }
 
     println!("{:?}", v)
+}
+
+fn unicode() {
+    // .chars returns the unicode char code point
+    for c in "नमस्ते".chars() {
+        println!("{}", c);
+    }
+
+    for b in  "नमस्ते".bytes() {
+        println!("{}", b)
+    }
+}
+
+fn dictionary() -> HashMap<String, u8> {
+    let mut dict: HashMap<String, u8> = HashMap::new();
+
+    dict.insert(String::from("hey"), 1);
+    dict.insert(String::from("bye"), 0);
+
+    match dict.get("hey") {
+        Some(v) => println!("{}", v),
+        None => ()
+    }
+
+    dict.get("hey").unwrap();
+
+    return dict
 }
 
 // Rust collections

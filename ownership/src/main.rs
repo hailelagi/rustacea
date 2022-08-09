@@ -11,9 +11,10 @@ fn main() {
 // - Variable Scope
 
 // string types
-// char => utf-8 encoded 4 bytes
+// char => unicode scalar value - encoded 4 bytes
 // str => stack allocated encoded bytes - string literal slice of String
-// String => heap allocated growth based pointer
+// contained in programs binary, hence the &str reference.
+// String => heap allocated growth based pointer of utf-8 bytes
 // clone copies heap data
 // moves change stack data from one variable to another
 // or from one scope to another ie. functions
@@ -35,7 +36,7 @@ fn rule() {
 
     do_stuff(&mut s);
 
-   // declared s_2 is moved into take_stuff
+    // declared s_2 is moved into take_stuff
     s_2 = take_stuff(s_2);
     println!("s_2 is now at {:p}", &s_2);
 
@@ -45,6 +46,8 @@ fn rule() {
     println!("s is finally at {:p}", &s);
     println!("s 2 is finally at {:p}", &s_2);
     // `drop() is called freeing s and s_2`
+
+    println!("{}", own());
 }
 
 fn take_stuff(mut x: String) -> String {
@@ -73,5 +76,20 @@ fn do_stuff(s: &mut String) {
     s.push_str(" ,world");
     // `drop() is never called
 }
+
+fn own() -> String {
+    let s1 = String::from("Hello, ");
+    let s2 = String::from("world!");
+    let s3 = s1 + &s2;
+
+    let mut s1 = String::from("foo");
+    let s2 = String::from("bar");
+    s1.push_str(&s2);
+    println!("s2 is {}", s2);
+    println!("{}", s3);
+
+    return format!("{}-{}-{}", s1, s2, s3);
+}
+
 // Slices - https://doc.rust-lang.org/book/ch04-03-slices.html#the-slice-type
 // slices are pointer based views into the len up to cap of an array
