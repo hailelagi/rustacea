@@ -13,11 +13,14 @@ fn main() {
     // }
 
     // println!("{}", largest)
-    let l: Vec<i32> = vec![1, 35, 0, 5, 52, 2525, 32];
-    let x = vec![1, 3, 8, 2, 2];
+    // let l: Vec<i32> = vec![1, 35, 0, 5, 52, 2525, 32];
+    // let x = vec![1, 3, 8, 2, 2];
 
-    println!("{}", largest(&l));
-    println!("{}", largest(&x))
+    // println!("{}", largest(&l));
+    // println!("{}", largest(&x))j
+    // dangle()
+    largest(&vec![1, 2, 3, 5]);
+    println!("{}", longest("hello", "bye"));
 }
 
 fn largest(list: &[i32]) -> i32 {
@@ -30,6 +33,14 @@ fn largest(list: &[i32]) -> i32 {
     }
 
     return largest;
+}
+
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
 }
 
 // Generic Data Types
@@ -65,20 +76,20 @@ enum Stuff<T> {
     Some(T),
     None,
 }
-// largest is generic over T
-fn large<T>(list: &[T]) -> T {
-    let p = Point { x: 1, y: 2.0 };
+// large is generic over T
+// fn large<T>(list: &[T]) -> T {
+//     let p = Point { x: 1, y: 2.0 };
 
-    let mut largest = list[0];
+//     let mut largest = list[0];
 
-    for &e in list {
-        if largest > e {
-            largest = e
-        }
-    }
+//     for &e in list {
+//         if largest > e {
+//             largest = e
+//         }
+//     }
 
-    largest
-}
+//     largest
+// }
 
 // Traits are abstract methods over a set of types
 // analogous to behaviours in elixir.
@@ -92,13 +103,13 @@ pub trait Summary {
 
 pub struct Sumit {
     x: u32,
-    y: f64
+    y: f64,
 }
 
 impl Summary for Sumit {
-        fn summarize(&self) -> String {
-            format!("you may sum: {} and {}", self.x, self.y)
-        }
+    fn summarize(&self) -> String {
+        format!("you may sum: {} and {}", self.x, self.y)
+    }
 }
 // trait bound implements Summary
 pub fn notify(item: &(impl Summary + Display)) {
@@ -112,12 +123,12 @@ pub fn notif<T: Summary + Display>(item: &T) {
 
 // where sugar
 
-fn some_function<T, U>(t: &T, u: &U) -> impl Summary
+fn some_function<T, U>(_t: &T, _u: &U) -> impl Summary
 where
     T: Display + Clone,
     U: Clone,
 {
-    Sumit{x: 5, y: 32.3}
+    Sumit { x: 5, y: 32.3 }
 }
 
 // conditional methods
@@ -141,3 +152,32 @@ impl<T: Display + PartialOrd> Pair<T> {
         }
     }
 }
+
+// Lifetimes - scope?
+// lifetimes prevent dangling pointers
+// compiler construct of the borrow checker
+// ensures all borrows are referenced correctly by comparing
+// the LifeTime of each block.
+
+//Lifetime annotations don’t change how long any of
+// the references live. Rather, they describe the
+//relationships of the lifetimes of multiple references
+// to each other without affecting the lifetimes
+
+// fn dangle() {
+//     let r;
+
+//     {
+//         let x = 5;
+//         r = &x;
+//     }
+
+//     println!("r: {}", r);
+// }
+
+// let x = 5;
+// let mut x = 5;
+// let y = &x;
+// &i32 reference
+// &'a i32 or &'a x; or &'a 5;
+// &'a x
