@@ -34,14 +34,28 @@ fn largest(list: &[i32]) -> i32 {
 
     return largest;
 }
-
-fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+// (generic)
+// lifetime
+// annotation   input lifetimes       -> output lifetime
+fn longest<'a, 'b>(x: &'a str, y: &'a str) -> &'a str {
     if x.len() > y.len() {
         x
     } else {
         y
     }
 }
+
+fn longest_with_an_announcement<'a, T: Display>(x: &'a str, y: &'a str, ann: T) -> &'a str 
+{
+    println!("Announcement! {}", ann);
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
+
+// lifetime ellison rules - known lifetime patterns by the compiler
 
 // Generic Data Types
 struct Point<T> {
