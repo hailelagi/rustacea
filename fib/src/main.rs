@@ -1,13 +1,14 @@
+use std::sync::atomic::{AtomicUsize, Ordering};
+
 fn main() {
-    println!("Hello, world!");
-    println!("{}", fib(32));
-}
+    // Create a new atomic counter with an initial value of 0
+    let counter = AtomicUsize::new(0);
 
-/* Prefer loops over recursion in rust */
-fn fib(n: i32) -> i32 {
-    if n <= 3 {
-        return 1;
-    }
-    return fib(n - 1) + fib(n - 2);
-}
+    // Perform an atomic increment operation on the counter
+    counter.fetch_add(1, Ordering::SeqCst);
 
+    // Get the current value of the counter
+    let value = counter.load(Ordering::SeqCst);
+
+    println!("Counter value: {}", value);
+}

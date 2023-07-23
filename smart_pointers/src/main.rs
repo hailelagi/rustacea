@@ -11,6 +11,11 @@ enum List {
 }
 */
 
+// Smart pointer is a regular pointer with metadata
+
+// Box Rc Ref RefMut - RefCell
+// Arc
+
 #[derive(Debug)]
 enum List {
     Cons(i32, Rc<List>),
